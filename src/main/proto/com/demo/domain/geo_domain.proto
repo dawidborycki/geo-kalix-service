@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package com.demo.domain;
+
+option java_outer_classname = "GeolocationDomain";
+
+message Geolocation {  
+  int32 user_id = 1;
+  double lat = 2;
+  double long = 3;
+}
+
+message GeolocationState {
+  repeated Geolocation items = 1;
+}

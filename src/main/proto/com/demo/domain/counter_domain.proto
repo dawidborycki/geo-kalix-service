@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package com.demo.domain;
+
+option java_outer_classname = "CounterDomain";
+
+message CounterState {
+  int32 value = 1;
+}

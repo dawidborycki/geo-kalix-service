@@ -1,41 +1,41 @@
 syntax = "proto3";
-
+ 
 package com.demo;
-
+ 
 option java_outer_classname = "GeoApi";
-
-import "akkaserverless/annotations.proto";
+ 
+import "kalix/annotations.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
-
+ 
 message Geolocations {
   repeated Geolocation items = 1;
 }
-
+ 
 message Geolocation {
   double lat = 1;
   double long = 2;
 }
-
+ 
 message AddGeolocationItem {
-  int32 user_id = 1 [(akkaserverless.field).entity_key = true];
+  int32 user_id = 1 [(kalix.field).entity_key = true];
   double lat = 2;
   double long = 3;
 }
-
+ 
 message GetGeolocations {
-  int32 user_id = 1 [(akkaserverless.field).entity_key = true];
+  int32 user_id = 1 [(kalix.field).entity_key = true];
 }
 
 service GeolocationService {
-  option (akkaserverless.codegen) = {
+  option (kalix.codegen) = {
     value_entity: {
       name: "com.demo.domain.GeolocationEntity"
       entity_type: "geolocation"
       state: "com.demo.domain.GeolocationState"      
     }
   };
-
+ 
   rpc AddItem(AddGeolocationItem) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       post: "/geo/{user_id}/items/add"

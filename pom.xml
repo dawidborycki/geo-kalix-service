@@ -11,15 +11,16 @@
     <properties>
 
     <!-- TODO Update to your own Docker repository or Docker Hub scope -->
-    <dockerImage>REPOSITORY</dockerImage>
-    <dockerTag>${project.version}</dockerTag>
+    <dockerImage>YOUR_REPO</dockerImage>
+    <dockerTag>latest</dockerTag>
+    <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
     <mainClass>com.demo.Main</mainClass>
 
     <jdk.target>11</jdk.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <akkaserverless-sdk.version>0.10.6</akkaserverless-sdk.version>
-    <akka-grpc.version>2.1.2</akka-grpc.version>
+    <kalix-sdk.version>1.0.2</kalix-sdk.version>
+    <akka-grpc.version>2.1.4</akka-grpc.version>
   </properties>
 
   <build>
@@ -113,7 +114,7 @@
       <plugin>
         <groupId>io.fabric8</groupId>
         <artifactId>docker-maven-plugin</artifactId>
-        <version>0.36.0</version>
+        <version>0.39.1</version>
         <configuration>
           <images>
             <image>
@@ -121,6 +122,9 @@
               <build>
                 <!-- Base Docker image which contains jre-->
                 <from>docker.io/library/adoptopenjdk:${jdk.target}-jre-hotspot</from>
+                <createImageOptions>
+                  <platform>linux/amd64</platform>
+                </createImageOptions>
                 <tags>
                   <!-- tag for generated image -->
                   <tag>${dockerTag}</tag>
@@ -233,9 +237,9 @@
       </plugin>
 
       <plugin>
-        <groupId>com.akkaserverless</groupId>
-        <artifactId>akkaserverless-maven-plugin</artifactId>
-        <version>${akkaserverless-sdk.version}</version>
+        <groupId>io.kalix</groupId>
+        <artifactId>kalix-maven-plugin</artifactId>
+        <version>${kalix-sdk.version}</version>
         <executions>
           <execution>
             <goals>
@@ -295,20 +299,20 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.akkaserverless</groupId>
-      <artifactId>akkaserverless-java-sdk</artifactId>
-      <version>${akkaserverless-sdk.version}</version>
+      <groupId>io.kalix</groupId>
+      <artifactId>kalix-java-sdk</artifactId>
+      <version>${kalix-sdk.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.akkaserverless</groupId>
-      <artifactId>akkaserverless-java-sdk-testkit</artifactId>
-      <version>${akkaserverless-sdk.version}</version>
+      <groupId>io.kalix</groupId>
+      <artifactId>kalix-java-sdk-testkit</artifactId>
+      <version>${kalix-sdk.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.13.1</version>
+      <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
